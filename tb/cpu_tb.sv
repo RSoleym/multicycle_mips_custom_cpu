@@ -26,6 +26,24 @@ module cpu_tb;
         .status_reg (status_reg),
         .REG_dbg (REG_dbg)
     );
+    
+    cpu_sva SVA(
+        .clk (clk),
+        .rst_n (rst_n),
+        .pc (PC_dbg),
+        .ir (IR_dbg),
+        .clr_pc (DUT.clr_pc),
+        .ld_pc (DUT.ld_pc),
+        .clr_ir (DUT.clr_ir),
+        .ld_ir (DUT.ld_ir),
+        .dmem_en (DUT.dmem_en),
+        .dmem_wen (DUT.dmem_wen),
+        .dmem_addr (DUT.dmem_addr),
+        .reg_we (DUT.reg_we),
+        .waddr_sel (DUT.waddr_sel),
+        .rd_addr (DUT.rd_addr),
+        .rt_addr (DUT.rt_addr)
+    );
 
     initial clk = 0;
     always #5 clk = ~clk;

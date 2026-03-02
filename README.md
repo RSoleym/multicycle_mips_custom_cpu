@@ -28,7 +28,7 @@ R-type: SLT, ADD, AND, OR, XOR, SUB, SLL, SRL, SRA, MULLO, MULHI
 
 ## Folder layout
 - `rtl/` : all SystemVerilog RTL (datapath, controller, regfile, memories, ALU, multiplier, etc.)
-- `tb/` : testbench
+-- `tb/` : testbench + SVA checker
 - `programs/` : assembly program + generated hex file
 - `tools/` : python assembler (asm -> hex)
 - `constraints/` : Basys 3 XDC and STA Test files
@@ -61,6 +61,23 @@ Testbench: tb/cpu_tb.sv
 
 The testbench runs the program until it detects the final “halt loop” (PC repeats), then prints the register values.
 
+## Assertion-Based Verification (SVA)
+This project includes SystemVerilog Assertions (SVA) checkers used during simulation to automatically catch architectural/control bugs early (Assertion-Based Verification / ABV).
+
+Location:
+- `tb/cpu_sva.sv`
+
+How it’s used:
+- The checker is instantiated in the testbench (`tb/cpu_tb.sv`) and monitors DUT/debug signals during program execution.
+
+Key invariants checked:
+- **PC alignment:** PC stays 4-byte aligned (`pc[1:0]==00`)
+- **Authorized PC/IR updates:** PC/IR only change when the previous cycle asserted load/clear (`ld_*` or `clr_*`)
+- **Memory control sanity:** `dmem_wen -> dmem_en`
+- **R0 immutability:** no register writeback is allowed to target `R0`
+
+If any rule is violated, simulation prints an error (`$error`) ide
+
 ## FPGA (Basys 3)
 Top: rtl/cpu_fpga_top.sv
 
@@ -72,6 +89,8 @@ After programming, the CPU ends in a self-jump so register values stay stable an
 Using a simple assembly smoke test program (programs/asm_instr.asm), I validated:
 
 Static timing of the CPU for a 100 MHz System Clock
+
+Assertion-based checks (SVA/ABV) for PC/IR update protocol, memory write-enable consistency, and R0 immutability
 
 ALU ops + shifts + SLT/SLTI
 
