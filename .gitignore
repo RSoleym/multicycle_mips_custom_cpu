@@ -1,0 +1,37 @@
+# Common editor / OS files
+.DS_Store
+Thumbs.db
+
+# Git / Python
+__pycache__/
+*.pyc
+*.pyo
+*.log
+
+# Quartus generated output
+**/db/
+**/incremental_db/
+**/output_files/
+**/*.qws
+**/*.jdi
+**/*.sld
+**/*.sof
+**/*.done
+**/*.rpt
+**/*.pin
+**/*.summary
+
+# Vivado generated output
+**/.Xil/
+**/*.jou
+**/*.log
+**/*.str
+**/*.cache/
+**/*.hw/
+**/*.ip_user_files/
+**/*.runs/
+**/*.sim/
+**/*.xpr
+
+# Local backups
+*.bak

@@ -5,6 +5,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(BASE_DIR)
 file_path_asm = os.path.join(PROJECT_ROOT, "programs", "asm_instr.asm")
 file_path_hex = os.path.join(PROJECT_ROOT, "programs", "hex_instr.hex")
+file_path_hex_compat = os.path.join(PROJECT_ROOT, "programs", "instr.hex")
 
 max_instr_mem = 2048
 max_data_mem = 0x0FFC
@@ -350,3 +351,9 @@ for i, parts in enumerate(token_lines):
 with open(file_path_hex, "w") as file:
     for line in hex_lines:
         file.write(line + "\n")
+
+with open(file_path_hex_compat, "w") as file_compat:
+    for line in hex_lines:
+        file_compat.write(line + "\n")
+
+print("Successfully Converted!")
