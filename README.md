@@ -1,4 +1,4 @@
-# configurable_32bit_cpu
+# Custom 32-bit Mips Style Multi-Cycle CPU
 
 A 32-bit MIPS-inspired multi-cycle CPU written in SystemVerilog, with simulation support, Basys 3 FPGA validation in Vivado, and a separate Quartus bring-up for Intel/Altera hardware.
 
